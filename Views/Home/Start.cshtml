@@ -1,0 +1,87 @@
+﻿
+
+@model Blackjack21Zhilin.Models.CurrentViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Play Blackjack</h2>
+<div class="container">
+    <div class="row align-middle">
+
+        <div class="col-lg-4">
+            <text style="font-size:25px;"><b>Player:</b>@Model.Player.Email</text>
+        </div>
+        <div class="col-lg-2 ">
+            <text style="font-size:25px;"><b>Balance:@Model.Player.Amount</b></text>
+        </div>
+        <div class="col-lg-2 ">
+            <text style="font-size:25px;"><b>Wins:@Model.Wins</b></text>
+        </div>
+        <div class="col-lg-2 ">
+            <text style="font-size:25px;"><b>Loses:@Model.Loses</b></text>
+        </div>
+        <div class="col-lg-2 ">
+            <text style="font-size:25px;"><b>Ties:@Model.Ties</b></text>
+        </div>
+        <div class="col-lg-4 col-lg-offset-8">
+            <text style="font-size:larger;"><b>Bet:@Model.Bet</b></text>
+        </div>
+        <div class="row col-lg-offset-2">
+
+
+            @using (Html.BeginForm("Start", "Home", FormMethod.Post))
+            {
+                <div class="form-group col-lg-2">
+                    <input type="hidden" name="Action" id="Start" value="PlayAgain" />
+                    <input type="submit" value="Play Again" class="btn btn-success" disabled="@(Model.DisablePlayQuit ? "disabled" : null)" />
+                </div>
+            }
+            @using (Html.BeginForm("Start", "Home", FormMethod.Post))
+            {
+                <div class="form-group col-lg-2">
+                    <input type="hidden" name="Action" id="Start" value="Quit" />
+                    <input type="submit" value="Quit" class="btn btn-warning" disabled="@(Model.DisablePlayQuit ? "disabled" : null)" />
+                </div>
+            }
+            @using (Html.BeginForm("Start", "Home", FormMethod.Post))
+            {
+                <div class="form-group col-lg-2">
+                    <input type="hidden" name="Action" id="Hit" value="Hit" />
+                    <input type="submit" value="Hit" class="btn btn-primary" disabled="@(Model.DisableHitStand ? "disabled" : null)" />
+                </div>
+            }
+            @using (Html.BeginForm("Start", "Home", FormMethod.Post))
+            {
+                <div class="form-group col-lg-2">
+                    <input type="hidden" name="Action" id="Stand" value="Stand" />
+                    <input type="submit" value="Stand" class="btn btn-info" disabled="@(Model.DisableHitStand ? "disabled" : null)"/>
+                </div>
+            }
+        </div>
+        <div class="row col-lg-8 col-lg-offset-2"><text class="bg-primary" style="font-size:30px;">@Model.Message</text></div>
+    </div>
+    <div class="row" style="width:90%;height:50%;background-color:green;margin-bottom:2%;">
+        <ul class="list-group list-group-horizontal-xl">
+            <li class="list-group-item">
+                <b>
+                    Player:@Model.PlayerValue
+                </b>
+            </li>
+            @foreach (var row in Model.PlayerHand)
+            {
+                <li class="list-group-item col-lg-2" style="background-color:green;"><img src="@row.PhotoPath" style="width:100%;" /></li>
+            }
+        </ul>
+    </div>
+    <div class="row" style="margin-top:2%;margin-bottom:2%;width:90%;height:50%;background-color:green;">
+        <ul class="list-group list-group-horizontal-xl">
+            <li class="list-group-item"><b>Dealer:@Model.DealerValue</b></li>
+            @foreach (var row in Model.DealerHand)
+            {
+                <li class="list-group-item col-lg-2" style="background-color:green;"><img src="@row.PhotoPath" style="width:100%;" /></li>
+            }
+        </ul>
+    </div>
+</div>
