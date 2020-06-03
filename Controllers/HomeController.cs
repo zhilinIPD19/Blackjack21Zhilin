@@ -204,17 +204,13 @@ namespace Blackjack21Zhilin.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-
-
-
         public List<PlayCard> GetAvailableCards()
         {
             return ( from p in _context.PlayCard
                     where p.IsDistributed == false
                     select p).ToList() as List<PlayCard> ;
         }
-    
-         public void UpdateCards(PlayCard c)
+        public void UpdateCards(PlayCard c)
         {
             var card = _context.PlayCard.First(a => a.PlayCardId == c.PlayCardId);
             card.IsDistributed = true;
